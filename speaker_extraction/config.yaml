@@ -83,7 +83,7 @@ dataloader:
   train_dir_wsj_rvrb_180_1000_same_gender: /workspace/inputs/aviad/extraction/data/rvrb/same_rvrb_ref_tar_180_1000_same_gender/train
   test_dir_wsj_rvrb_200_600_partial: /workspace/inputs/aviad/extraction/data/rvrb/wsj_same_rvrb_ref_tar_200_600_partial_ol/test
   pin_memory: true
-  num_workers: 8
+  num_workers: 1
   shuffle: true
   batch_size: 6
   val_batch_size: 1
