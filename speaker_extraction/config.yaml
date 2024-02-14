@@ -1,0 +1,115 @@
+test: false
+ecapa: false
+embedding_loss: false
+ri_aug: false
+pre_training: false
+on_epoch_end_dir: /workspace/inputs/aviad/extraction/data/rvrb/whamr_on_epoch_end
+transformer_norm_first: false
+separation: false
+norm: layer
+act_fun: relu
+iterations_num_phase2: 1
+prelu_after_fc: false
+use_emb_ref: false
+pe_en: false
+loss_cliping: -1
+features: real_imag
+std: false
+special_dynamic: false
+full_encoder_self_att: true
+full_decoder_self_att: false
+bottleneck_op: mult
+ref_skip_co: false
+dm: false
+da: false
+da_database: whamr
+corr_loss: false
+mse_loss: false
+negative_sisdri_loss: false
+negative_mse_loss: false
+ref_emb_loss: false
+random_seed: 1
+active_triplet: false
+ref_features: real_imag
+iterations_num: 2
+small_encoder_ref: false
+same_encoder: true
+mean_ref: true
+database: wsj_rvrb_200_600 # whamr_wsj_rvrb_200_600
+model_def_name: Three_Stages
+with_dervrb_loss: true
+insert_mix: false
+insert_mix_in_cnl: false
+insert_mix_plus: false
+insert_ref: true
+get_full_emb_ref: true
+finetuning: false
+finetuning_path: /workspace/inputs/aviad/extraction/models/First_Stage/whamr_wsj_rvrb_200_600/good__iterations_num=1__ref_skip_co=False__mean_ref=False__same_encoder=True__ref_features=real_imag/checkpoints/lightning_logs/version_3/checkpoints/epoch=26,val_loss=-11.15.ckpt
+criterion: si_sdri
+triplet_loss: true
+alpha: 2
+dist: cosine
+warm_up: 20000
+margin: 0.5
+debug: false
+dataloader:
+  speedperturb: false
+  train_dir_hershey: /workspace/inputs/aviad/extraction/data/clean/hershey/min/tr
+  val_dir_hershey: /workspace/inputs/aviad/extraction/data/clean/hershey/min/cv
+  test_dir_hershey: /workspace/inputs/aviad/extraction/data/clean/hershey/min/tt
+  train_dir_libri2mix: /workspace/inputs/aviad/extraction/data/clean/Libri2Mix/wav8k/min/train-100
+  val_dir_libri2mix: /workspace/inputs/aviad/extraction/data/clean/Libri2Mix/wav8k/min/dev
+  test_dir_libri2mix: /workspace/inputs/aviad/extraction/data/clean/Libri2Mix/wav8k/min/test
+  train_dir_DM_wsj_cln: /workspace/inputs/aviad/extraction/data/clean/wsj/train
+  train_dir_DM_wsj_dm: /workspace/inputs/aviad/extraction/data/clean/wsj/train_speakers
+  val_dir_DM_wsj_cln: /workspace/inputs/aviad/extraction/data/clean/wsj/val
+  test_dir_DM_wsj_cln: /workspace/inputs/aviad/extraction/data/clean/hershey/min/tt
+  train_dir_wsj_rvrb_500_800: /workspace/inputs/aviad/extraction/data/rvrb/rvrb_tar_500_800/train
+  val_dir_wsj_rvrb_500_800: /workspace/inputs/aviad/extraction/data/rvrb/rvrb_tar_500_800/val
+  train_dir_wsj_rvrb_200_600: /workspace/inputs/aviad/extraction/data/rvrb/same_rvrb_ref_tar_200_600/train
+  val_dir_wsj_rvrb_200_600: /workspace/inputs/aviad/extraction/data/rvrb/same_rvrb_ref_tar_200_600/val
+  test_dir_wsj_rvrb_200_600: /workspace/inputs/aviad/extraction/data/rvrb/same_rvrb_ref_tar_200_600/test
+  train_dir_wsj_rvrb_200_400: /workspace/inputs/aviad/extraction/data/rvrb/same_rvrb_ref_tar_200_400/train
+  val_dir_wsj_rvrb_200_400: /workspace/inputs/aviad/extraction/data/rvrb/same_rvrb_ref_tar_200_400/val
+  test_dir_wsj_rvrb_200_400: /workspace/inputs/aviad/extraction/data/rvrb/same_rvrb_ref_tar_200_400/test
+  train_dir_wsj_rvrb_180_1000: /workspace/inputs/aviad/extraction/data/rvrb/same_rvrb_ref_tar_180_1000/train
+  val_dir_wsj_rvrb_180_1000: /workspace/inputs/aviad/extraction/data/rvrb/same_rvrb_ref_tar_180_1000/val
+  test_dir_wsj_rvrb_180_1000: /workspace/inputs/aviad/extraction/data/rvrb/same_rvrb_ref_tar_180_1000/test
+  train_dir_whamr: /workspace/inputs/aviad/extraction/data/rvrb/whamr/train
+  val_dir_whamr: /workspace/inputs/aviad/extraction/data/rvrb/whamr/val
+  test_dir_whamr: /workspace/inputs/aviad/extraction/data/rvrb/whamr/test
+  val_dir_libri_rvrb_180_1000: /workspace/inputs/aviad/extraction/data/rvrb/libri_same_rvrb_ref_tar_180_1000/val
+  path_noise: /workspace/datasets/whamr_noise_data/wham_noise/tr
+  train_dir_wsj_rvrb_180_1000_same_gender: /workspace/inputs/aviad/extraction/data/rvrb/same_rvrb_ref_tar_180_1000_same_gender/train
+  test_dir_wsj_rvrb_200_600_partial: /workspace/inputs/aviad/extraction/data/rvrb/wsj_same_rvrb_ref_tar_200_600_partial_ol/test
+  pin_memory: true
+  num_workers: 8
+  shuffle: true
+  batch_size: 6
+  val_batch_size: 1
+  test_batch_size: 1
+  max_length: 5
+unet:
+  inputchannels: 1
+  num_filters: 64
+  kernel_size: 4
+train:
+  flag_norm01: true
+  patience: 15
+  optimizer: adam
+  scheduler: ReduceLROnPlateau
+  lr: 0.0001
+  check_val_every_n_epoch: 1
+  num_of_gpus: -1
+  cuda_visible_devices: '-1'
+stft:
+  fs: 8000
+  fft_length: 256
+  fft_hop: 128
+  window: hann
+runai:
+  job_name: three-iter2-nofinetuning-mean-ref-alpha2
+  script_path: /workspace/inputs/aviad/extraction/src/models/train_model.py
+  number_of_gpus: 2
+  runai_train: true
+  image_name: arti.originai.co/docker/speech_base:21.06-runai-aviad
