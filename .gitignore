@@ -160,4 +160,4 @@ cython_debug/
 #.idea/
 
 *my_key.txt
-*.pth
+speaker_extraction/epoch=374,val_loss=-12.62.pth
