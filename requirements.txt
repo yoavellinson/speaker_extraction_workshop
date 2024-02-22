@@ -2,6 +2,7 @@
 omegaconf==2.2.2
 pytorch_lightning==2.1.4
 soundfile==0.12.1
-#torch==2.2.0
+torch==2.2.0
 torchaudio
 jiwer==2.5.1
+gdown
