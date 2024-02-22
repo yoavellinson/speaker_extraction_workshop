@@ -27,10 +27,3 @@ def display_audio(samples,sr):
     if torch.is_tensor(samples):
         samples= samples.detach().numpy()
     ipd.display(ipd.Audio(samples,rate=sr))
-
-
-def get_model_file():
-    import gdown
-    url ='https://drive.google.com/file/d/19WkOv8XQ4lQwtPQLp5TWMY_xDAcs0ArW'
-    file_id='19WkOv8XQ4lQwtPQLp5TWMY_xDAcs0ArW'
-    gdown.download(url,output='/home/bari/workspace/spring_winter_school/speaker_extraction_workshop/model.pth')
