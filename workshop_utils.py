@@ -27,3 +27,26 @@ def display_audio(samples,sr):
     if torch.is_tensor(samples):
         samples= samples.detach().numpy()
     ipd.display(ipd.Audio(samples,rate=sr))
+
+import numpy as np
+
+def pad_to_length(x,length):
+    if torch.is_tensor(x):
+        x = norm(torch.cat((x.squeeze(),torch.zeros(length-x.shape[-1]))))
+    elif isinstance(x,(np.ndarray,np.generic)):
+        x = norm(np.concatenate((x,np.zeros(length-x.shape[-1]))))
+    return x
+
+def norm(samples):
+    return 0.9*samples/max(abs(samples))
+
+def mix(wav1,wav2,sir=0): #mixes two audio signals with sir
+    #check lengths
+    max_len = max(wav1.shape[-1],wav2.shape[-1])
+    wav1,wav2 = norm(pad_to_length(wav1,max_len)),norm(pad_to_length(wav2,max_len))
+    if torch.is_tensor(wav1) and torch.is_tensor(wav2):
+        G =torch.sqrt(10 ** (-sir / 10) * torch.std(wav1) ** 2 / torch.std(wav2) ** 2)
+    elif isinstance(wav1,(np.ndarray,np.generic)) and isinstance(wav2,(np.ndarray,np.generic)):
+        G =np.sqrt(10 ** (-sir / 10) * np.std(wav1) ** 2 / np.std(wav2) ** 2)
+    wav1 += G*wav2
+    return norm(wav1).squeeze()
